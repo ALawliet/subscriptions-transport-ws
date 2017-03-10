@@ -94,6 +94,10 @@ export class SubscriptionServer {
       const connectionSubscriptions: ConnectionSubscriptions = Object.create(null);
       const connectionContext: ConnectionContext = Object.create(null);
 
+      request.on('error', (err) => {
+        console.error(err);
+      });
+
       request.on('message', this.onMessage(request, connectionSubscriptions, connectionContext));
       request.on('close', () => {
         this.onClose(request, connectionSubscriptions)();
